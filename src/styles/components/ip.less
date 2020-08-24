@@ -1,0 +1,22 @@
+@ip-prefix-cls: ~"@{css-prefix}ip";
+@input-ip-prefix-cls: ~"@{css-prefix}input-ip";
+
+.@{ip-prefix-cls} {
+  width: 320px;
+  display: inline-block;
+
+  &-wrapper {
+    display: flex;
+  }
+
+  &-item {
+    flex: 1;
+    &:not(:last-of-type) {
+      margin-right: 16px;
+    }
+
+    .@{input-ip-prefix-cls}{
+      width: 100%;
+    }
+  }
+}
