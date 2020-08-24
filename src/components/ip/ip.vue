@@ -5,7 +5,8 @@
         <InputIp
           v-model="ipModel[index]"
           @on-change='ipItemChangeHandle($event, index)'
-          @dotClick='dotClickHandle(index)'></InputIp>
+          @dotClick='dotClickHandle(index)'
+          @backPrevInput='backPrevInputHandle(index)'></InputIp>
         <span :class="dotClasses"></span>
       </div>
     </div>
@@ -115,6 +116,11 @@
       dotClickHandle (index) {
         if (this.$children.length > 0 && index < 3) {
           this.$children[index + 1].setFocus()
+        }
+      },
+      backPrevInputHandle (index) {
+        if (this.$children.length > 0 && index > 0) {
+          this.$children[index - 1].setFocus()
         }
       }
     }
