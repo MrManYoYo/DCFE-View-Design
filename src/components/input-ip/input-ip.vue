@@ -128,6 +128,9 @@
                     this.$emit('input', val);
                     this.$emit('on-change', val);
                     this.dispatch('FormItem', 'on-form-change', val);
+                    if (`${val}`.length === 3) {
+                        this.$emit('dotClick')
+                    }
                 });
             },
             focus (event) {
@@ -145,6 +148,10 @@
                 if (e.keyCode === 190) {
                     e.preventDefault();
                     this.$emit('dotClick')
+                } else if (e.keyCode === 8) {
+                    if (!this.currentValue && typeof this.currentValue !== 'number') {
+                        this.$emit('backPrevInput')
+                    }
                 }
             },
             change (event) {
