@@ -60,6 +60,7 @@
                 <span style='display: inline-block;margin: 30px;'><router-link to="/icon">Icon</router-link></span>
                 <span style='display: inline-block;margin: 30px;'><router-link to="/list">List</router-link></span>
                 <span style='display: inline-block;margin: 30px;'><router-link to="/ip">Ip</router-link></span>
+                <span style='display: inline-block;margin: 30px;'><router-link to="/label">Label</router-link></span>
             </div>
         </div>
         <div style="margin: 50px">
