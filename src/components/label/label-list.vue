@@ -181,6 +181,7 @@
         }
         this.labelModel.splice(index, 1)
         this.$emit('change', this.labelModel)
+        this.choosedLabelsStatus[tag.name] = false
       },
       clickOutSideHandle ($event) {
         //
@@ -227,6 +228,9 @@
       quickCreateLabelHandle (params) {
         const { color } = params
         const name = this.labelSearchModel
+        if (!name || name.trim().length === 0) {
+          return
+        }
         const newTag = {
           name,
           color

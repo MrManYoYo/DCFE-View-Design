@@ -91,7 +91,7 @@
     },
     methods: {
       createNewLabelHandle () {
-        if (!this.newLabelName) {
+        if (!this.newLabelName || this.newLabelName.trim().length === 0) {
           return
         }
         // 判断是否存在同名标签
@@ -118,7 +118,7 @@
         })
       },
       editLabelHandle () {
-        if (!this.newLabelName) {
+        if (!this.newLabelName || this.newLabelName.trim().length === 0) {
           return
         }
         // 判断是否存在同名标签
