@@ -127,6 +127,10 @@
                 type: Number,
                 default: 1000
             },
+            centered: {
+                type: Boolean,
+                default: false
+            }
         },
         data () {
             return {
@@ -153,7 +157,8 @@
                     {
                         [`${prefixCls}-hidden`]: !this.wrapShow,
                         [`${this.className}`]: !!this.className,
-                        [`${prefixCls}-no-mask`]: !this.showMask
+                        [`${prefixCls}-no-mask`]: !this.showMask,
+                        [`${prefixCls}-centered`]: this.centered
                     }
                 ];
             },
@@ -171,7 +176,7 @@
                     {
                         [`${prefixCls}-fullscreen`]: this.fullscreen,
                         [`${prefixCls}-fullscreen-no-header`]: this.fullscreen && !this.showHead,
-                        [`${prefixCls}-fullscreen-no-footer`]: this.fullscreen && this.footerHide
+                        [`${prefixCls}-fullscreen-no-footer`]: this.fullscreen && this.footerHide,
                     }
                 ];
             },
