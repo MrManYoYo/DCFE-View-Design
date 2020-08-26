@@ -158,7 +158,7 @@
             },
             showAlarmModal () {
                 // this.showAlarm = true
-                this.$Modal.info({
+                this.$Modal.confirm({
                     title: '是否确认删除',
                     content: '123',
                     iconName: 'ios-information-circle-outline',

@@ -18,6 +18,10 @@
             labelWidth: {
                 type: Number
             },
+            itemWidth: {
+                type: Number,
+                default: 320
+            },
             labelPosition: {
                 validator (value) {
                     return oneOf(value, ['left', 'right', 'top']);

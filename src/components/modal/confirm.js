@@ -31,7 +31,7 @@ Modal.newInstance = properties => {
             if (this.showCancel) {
                 footerVNodes.push(h(Button, {
                     props: {
-                        type: 'text'
+                        type: 'default'
                     },
                     on: {
                         click: this.cancel
