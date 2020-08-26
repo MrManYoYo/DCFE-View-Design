@@ -27,6 +27,11 @@ export declare class Table extends Vue {
      */
     border?: boolean;
     /**
+     * 是否隐藏表格边框
+     * @default false
+     */
+    noBorder?: boolean;
+    /**
      * 是否显示表头
      * @default true
      */
@@ -84,6 +89,11 @@ export declare class Table extends Vue {
      * @default false
      */
     "draggable"?: boolean;
+    /**
+     * 是否开启拖拽调整列顺序，需配合 @on-column-drag-drop 事件使用
+     * @default false
+     */
+    "column-draggable"?: boolean;
     /**
      * 列使用 tooltip 时，配置它的主题，可选值为 dark 或 light
      * @default dark
@@ -174,11 +184,17 @@ export declare class Table extends Vue {
      */
     $emit(eventName: "on-expand", row: object, status: string): this;
     /**
-     * 拖拽排序松开时触发，返回置换的两行数据索引
+     * 拖拽行排序松开时触发，返回置换的两行数据索引
      * index1
      * index2
      */
     $emit(eventName: "on-drag-drop", index1: number, index2: number): this;
+    /**
+     * 拖拽列排序松开时触发，返回置换的两列数据索引
+     * index1
+     * index2
+     */
+    $emit(eventName: "on-column-drag-drop", index1: number, index2: number): this;
     /**
      * 导出数据
      */
@@ -193,14 +209,18 @@ export declare class Table extends Vue {
     clearCurrentRow(): void;
     /**
      * 展开或收起某一行
+     * index: 当前行的索引
      */
     toggleExpand(index: number): void;
     /**
      * 选中或取消选中某一项
+     * index: 当前行的索引
+     * rowKey?: row-key 存在时使用
      */
-    toggleSelect(index: number, key: any): void;
+    toggleSelect(index: number, rowKey?: any): void;
     /**
      * 全选或取消全选
+     * status: 状态
      */
     selectAll(status: boolean): void;
     /**

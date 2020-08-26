@@ -4,6 +4,7 @@
             <div :class="[prefixCls + '-title']" v-if="showSlotHeader" ref="title"><slot name="header"></slot></div>
             <div :class="[prefixCls + '-header']" v-if="showHeader" ref="header" @mousewheel="handleMouseWheel">
                 <table-head
+                    :column-draggable="columnDraggable"
                     :prefix-cls="prefixCls"
                     :styleObject="tableHeaderStyle"
                     :columns="cloneColumns"
@@ -237,6 +238,10 @@
                 default: false
             },
             draggable: {
+                type: Boolean,
+                default: false
+            },
+            columnDraggable: {
                 type: Boolean,
                 default: false
             },
@@ -1388,6 +1393,9 @@
             },
             dragAndDrop(a,b) {
                 this.$emit('on-drag-drop', a,b);
+            },
+            columnDragAndDrop(a, b) {
+                this.$emit('on-column-drag-drop', a, b);
             },
             handleClickContextMenuOutside () {
                 this.contextMenuVisible = false;

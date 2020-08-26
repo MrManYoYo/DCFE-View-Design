@@ -21,7 +21,9 @@
             },
             onDrop (e,index) {
                 const dragIndex = e.dataTransfer.getData('index');
-                this.$parent.$parent.dragAndDrop(dragIndex,index);
+                if (dragIndex) {
+                    this.$parent.$parent.dragAndDrop(dragIndex,index);
+                }
                 e.preventDefault();
             },
             allowDrop (e) {
