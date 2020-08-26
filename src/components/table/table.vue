@@ -202,6 +202,10 @@
                 type: Boolean,
                 default: false
             },
+            noBorder: {
+                type: Boolean,
+                default: false
+            },
             showHeader: {
                 type: Boolean,
                 default: true
@@ -358,6 +362,7 @@
                     {
                         [`${prefixCls}-${this.size}`]: !!this.size,
                         [`${prefixCls}-border`]: this.border,
+                        [`${prefixCls}-no-border`]: this.noBorder,
                         [`${prefixCls}-stripe`]: this.stripe,
                         [`${prefixCls}-with-fixed-top`]: !!this.height
                     }
