@@ -21,6 +21,7 @@
             },
             onDrop (e,index) {
                 const dragIndex = e.dataTransfer.getData('index');
+                // TODO 忽略掉不同表格之间的拖拽，不同表格拖拽会报错
                 if (dragIndex) {
                     this.$parent.$parent.dragAndDrop(dragIndex,index);
                 }
