@@ -813,11 +813,16 @@
             },
             toggleExpand (_index) {
                 let data = {};
+                const accordion = (this.cloneColumns.find(t => t.type === 'expand') || {}).accordion;
 
                 for (let i in this.objData) {
                     if (parseInt(i) === _index) {
                         data = this.objData[i];
-                        break;
+                        if (!accordion) {
+                            break;
+                        }
+                    } else if (accordion) {
+                        this.objData[i]._isExpanded = false;
                     }
                 }
                 const status = !data._isExpanded;

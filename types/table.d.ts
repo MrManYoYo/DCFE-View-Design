@@ -192,6 +192,10 @@ export declare class Table extends Vue {
      */
     clearCurrentRow(): void;
     /**
+     * 展开或收起某一行
+     */
+    toggleExpand(index: number): void;
+    /**
      * slot插槽对象
      */
     $slots: {
@@ -285,6 +289,10 @@ export declare class TableColumn {
      * @param row 当前行数据
      */
     indexMethod?: (row?: object) => string | number;
+    /**
+     * type 为 expand 时可用，是否开启手风琴模式，开启后每次至多展开一行
+     */
+    accordion?: boolean;
     /**
      * 自定义渲染列，使用 slot-scope 写法
      * 声明 slot 后，就可以在 Table 的 slot 中使用 slot-scope
