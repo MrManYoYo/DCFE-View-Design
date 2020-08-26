@@ -196,6 +196,14 @@ export declare class Table extends Vue {
      */
     toggleExpand(index: number): void;
     /**
+     * 选中或取消选中某一项
+     */
+    toggleSelect(index: number, key: any): void;
+    /**
+     * 全选或取消全选
+     */
+    selectAll(status: boolean): void;
+    /**
      * slot插槽对象
      */
     $slots: {
