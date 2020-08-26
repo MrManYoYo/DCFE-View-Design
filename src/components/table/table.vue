@@ -202,6 +202,10 @@
                 type: Boolean,
                 default: false
             },
+            noBorder: {
+                type: Boolean,
+                default: false
+            },
             showHeader: {
                 type: Boolean,
                 default: true
@@ -358,6 +362,7 @@
                     {
                         [`${prefixCls}-${this.size}`]: !!this.size,
                         [`${prefixCls}-border`]: this.border,
+                        [`${prefixCls}-no-border`]: this.noBorder,
                         [`${prefixCls}-stripe`]: this.stripe,
                         [`${prefixCls}-with-fixed-top`]: !!this.height
                     }
@@ -808,11 +813,16 @@
             },
             toggleExpand (_index) {
                 let data = {};
+                const accordion = (this.cloneColumns.find(t => t.type === 'expand') || {}).accordion;
 
                 for (let i in this.objData) {
                     if (parseInt(i) === _index) {
                         data = this.objData[i];
-                        break;
+                        if (!accordion) {
+                            break;
+                        }
+                    } else if (accordion) {
+                        this.objData[i]._isExpanded = false;
                     }
                 }
                 const status = !data._isExpanded;

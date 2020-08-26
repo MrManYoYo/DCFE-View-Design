@@ -65,6 +65,10 @@
         z-index: 4; // 解决开启 border，同时固定表头和列，fixed 的最底下没有边框
     }
 
+    &-no-border:before{
+        display: none;
+    }
+
     &-border:after{
         content: '';
         width: 1px;
@@ -161,9 +165,11 @@
         height: 40px;
         white-space: nowrap;
         overflow: hidden;
+        color: #8c8c8c;
         background-color: @table-thead-bg;
     }
     td{
+        color: #262626;
         background-color: #fff;
         transition: background-color @transition-time @ease-in-out;
     }
@@ -189,6 +195,14 @@
     &-border{
         th,td{
             border-right: 1px solid @border-color-split;
+        }
+    }
+    &-no-border{
+        th,td{
+            border: 0;
+        }
+        th{
+            border-right: 1px solid #fff;
         }
     }
     &-cell{
@@ -359,19 +373,19 @@
 
     &-small{
         font-size: @font-size-small;
-        th{
-            height: 32px;
+        thead tr th{
+            height: 36px;
         }
         td{
-            height: 40px;
+            height: 36px;
         }
         &-title, &-footer{
-            height: 40px;
-            line-height: 40px;
+            height: 36px;
+            line-height: 36px;
         }
         .@{table-prefix-cls}-cell-with-expand{
-            height: 39px;
-            line-height: 39px;
+            height: 35px;
+            line-height: 35px;
         }
     }
 
@@ -400,6 +414,11 @@
             left: 0;
             bottom: 0;
             z-index: 4;
+        }
+    }
+    &-no-border &-fixed, &-no-border &-fixed-right{
+        &::before {
+            display: none;
         }
     }
     &-fixed-right{
@@ -518,6 +537,19 @@
               text-align: center;
             }
         }
+        // padding: 129px 20px 20px;
+        // background: url('~@/assets/bg-empty-show.png') no-repeat center 40px;
+        // background-size: 117px 78px;
+        // text-align: center;
+        // color: #8C8C8C;
+        // font-size: 14px;
+        // line-height: 20px;
+        // &:after {
+        //     content: '暂无数据';
+        // }
+        // table{
+        //     display: none;
+        // }
     }
 
     &-expanded-hidden{
