@@ -22,6 +22,24 @@
         z-index: @zindex-modal;
         -webkit-overflow-scrolling: touch;
         outline: 0;
+
+        &.@{modal-prefix-cls}-centered{
+            text-align: center;
+            &::before{
+                display: inline-block;
+                width: 0;
+                height: 100%;
+                vertical-align: middle;
+                content: "";
+            }
+
+            .@{modal-prefix-cls} {
+                top: 0;
+                display: inline-block;
+                text-align: left;
+                vertical-align: middle;
+            }
+        }
     }
 
     &-wrap * {

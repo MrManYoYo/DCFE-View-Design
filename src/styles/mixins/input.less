@@ -8,12 +8,12 @@
 .active(@color: @input-hover-border-color) {
     border-color: tint(@color, 20%);
     outline: 0;
-    box-shadow: 0 0 0 2px fade(@color, 20%);
+    // box-shadow: 0 0 0 2px fade(@color, 20%);
 }
 .active-error() {
     border-color: @error-color;
     outline: 0;
-    box-shadow: 0 0 0 2px fade(@error-color, 20%);
+    // box-shadow: 0 0 0 2px fade(@error-color, 20%);
 }
 
 .disabled() {
@@ -52,8 +52,10 @@
     background-image: none;
     position: relative;
     cursor: text;
+    box-shadow: none;
     .placeholder();
-    transition: border @transition-time @ease-in-out, background @transition-time @ease-in-out, box-shadow @transition-time @ease-in-out;
+    // transition: border @transition-time @ease-in-out, background @transition-time @ease-in-out, box-shadow @transition-time @ease-in-out;
+    transition: border @transition-time @ease-in-out, background @transition-time @ease-in-out;
 
     &:hover {
         .hover();

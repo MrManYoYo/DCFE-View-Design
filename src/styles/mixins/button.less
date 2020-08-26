@@ -181,7 +181,8 @@
     .button-size(@btn-height-base; @btn-padding-base; @btn-font-size; @btn-border-radius);
     //transform: translate3d(0, 0, 0);
     //transition: all @transition-time linear;
-    transition: color @transition-time linear, background-color @transition-time linear, border @transition-time linear, box-shadow @transition-time linear;
+    // transition: color @transition-time linear, background-color @transition-time linear, border @transition-time linear, box-shadow @transition-time linear;
+    transition: color @transition-time linear, background-color @transition-time linear, border @transition-time linear;
 
     > .@{css-prefix-iconfont} {
         line-height: @line-height-base;
@@ -328,7 +329,7 @@
 // for tabindex
 .active-btn-color(@color) {
     &:focus {
-        box-shadow: 0 0 0 2px fade(@color, 20%);
+        // box-shadow: 0 0 0 2px fade(@color, 20%);
     }
 }
 .btn-color(@color) {

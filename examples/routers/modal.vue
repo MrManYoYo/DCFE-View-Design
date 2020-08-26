@@ -45,6 +45,15 @@
         <Select v-model="model1" style="width:200px" :transfer="true">
             <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
+        <Button type="primary" @click='showAlarmModal'>提示</Button>
+        <Button type="primary" @click='showCenteredModal = true'>垂直居中</Button>
+        <Modal
+            v-model="showCenteredModal"
+            :centered='true'
+            title="垂直居中"
+            >
+            <p>参数 centered</p>
+        </Modal>
     </div>
 </template>
 <script>
@@ -126,7 +135,9 @@
                             ]
                         }
                     ],
-                }]
+                }],
+                showAlarm: false,
+                showCenteredModal: false
             }
         },
         methods: {
@@ -145,6 +156,20 @@
             handleSpinShow () {
                 this.$Spin.show();
             },
+            showAlarmModal () {
+                // this.showAlarm = true
+                this.$Modal.info({
+                    title: '是否确认删除',
+                    content: '123',
+                    iconName: 'ios-information-circle-outline',
+                    iconExtraClass: 'temp-icon-class'
+                })
+            }
         }
     }
 </script>
+<style>
+    .temp-icon-class{
+        color: #ff0000;
+    }
+</style>

@@ -137,7 +137,8 @@ Modal.newInstance = properties => {
             iconNameCls () {
                 return [
                     'ivu-icon',
-                    `ivu-icon-${this.iconName}`
+                    `ivu-icon-${this.iconName}`,
+                    this.iconExtraClass ? this.iconExtraClass : ''
                 ];
             },
             localeOkText () {
@@ -199,7 +200,6 @@ Modal.newInstance = properties => {
         show (props) {
             modal.$parent.showCancel = props.showCancel;
             modal.$parent.iconType = props.icon;
-
             switch (props.icon) {
                 case 'info':
                     modal.$parent.iconName = 'ios-information-circle';
@@ -257,6 +257,14 @@ Modal.newInstance = properties => {
 
             if ('scrollable' in props) {
                 modal.$parent.scrollable = props.scrollable;
+            }
+
+            // cutsom icon style
+            if (props.iconName) {
+                modal.$parent.iconName = props.iconName;
+            }
+            if ('iconExtraClass' in props) {
+                modal.$parent.iconExtraClass = props.iconExtraClass
             }
 
             // notice when component destroy
