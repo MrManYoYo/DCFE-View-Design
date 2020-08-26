@@ -365,6 +365,10 @@
                     if ($options && $options.length) {
                         if ($options.find(item => item.optionLabel === this.query)) state = false;
                     }
+                    // 选择条目后，query变更后，避免创建同名项
+                    if (this.values && this.values.find(item => item.value === this.query)) {
+                        state = false;
+                    }
                 }
                 return  state;
             },
@@ -554,6 +558,10 @@
                     this.dropDownWidth = this.$el.getBoundingClientRect().width;
                     this.broadcast('Drop', 'on-update-popper');
                 }
+                // 未赋值情况下，初次输入不存在的条目，不选择情况下，blur后应清空
+                if (this.values.length === 0 && !this.visible) {
+                    this.query = ''
+                }
             },
             hideMenu () {
                 this.toggleMenu(null, false);
@@ -726,7 +734,6 @@
                         this.visible = true;
                     }
                 }
-
                 this.query = query;
                 this.unchangedQuery = this.visible;
                 this.filterQueryChange = true;
