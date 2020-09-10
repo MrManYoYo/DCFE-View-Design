@@ -1,6 +1,12 @@
 <template>
   <div :class="wrapClasses">
-    <label-list v-model='labelModel'></label-list>
+    <label-list
+      v-model='choosedLabel'
+      :labelList='labelList'
+      :viewMode='viewMode'
+      @onLabelListChange='onLabelListChange'
+      @onLabelSelectedChange='onLabelSelectedChange'
+      @onLabelDelete='onLabelDelete'></label-list>
   </div>
 </template>
 
@@ -12,17 +18,34 @@
   export default {
     name: 'Label',
     components: { LabelList },
-    
+    model: {
+      prop: 'value',
+      event: 'change'
+    },
     props: {
-
+      value: {
+        type: Array
+      },
+      labelList: {
+        type: Array
+      },
+      viewMode: {
+        type: Boolean,
+        default: false
+      }
     },
     data() {
       return {
-        labelModel: [
-          { name: 'xxx', color: 'primary' },
-          { name: 'xxx1', color: 'primary' },
-          { name: 'xxx2', color: 'primary' }
-        ]
+        choosedLabel: [],
+      }
+    },
+    watch: {
+      value (newVal) {
+        this.choosedLabel = newVal
+        this.$emit('change', newVal)
+      },
+      labelList (newVal) {
+        this.labelList = newVal
       }
     },
     computed: {
@@ -30,6 +53,20 @@
         return [
           `${prefixCls}`
         ]
+      }
+    },
+    created () {
+      this.choosedLabel = this.value
+    },
+    methods: {
+      onLabelListChange (labelList, selected) {
+        this.$emit('onListChange', labelList, selected)
+      },
+      onLabelSelectedChange (selected) {
+        this.$emit('onSelectedChange', selected)
+      },
+      onLabelDelete (deleteItem) {
+        this.$emit('onLabelDelete', deleteItem)
       }
     }
   }

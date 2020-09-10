@@ -137,13 +137,29 @@
     },
     watch: {
       labelList (newVal) {
-        this.$emit('onTagListChange', newVal, this.labelModel)
+        this.$emit('onLabelListChange', newVal, this.labelModel)
       },
-      labelModel (newVal) {
-        this.$emit('onTagSelectedChange', newVal)
+      labelModel (newVal, oldVal) {
+        const oldKey = oldVal.map(item => item.name)
+        const newKey = newVal.map(item => item.name)
+        newVal.forEach(item => {
+          this.choosedLabelsStatus[item.name] = true
+        })
+        // 旧项取消选中
+        oldKey.forEach(labelName => {
+          if (newKey.indexOf(labelName) === -1) {
+            this.choosedLabelsStatus[labelName] = false
+          }
+        })
+        this.$emit('onLabelSelectedChange', newVal)
       }
     },
     created () {
+      if (this.labelModel && this.labelModel.length > 0) {
+        this.labelModel.forEach(item => {
+          this.choosedLabelsStatus[item.name] = true
+        })
+      }
     },
     methods: {
       showLabelListHandle () {
@@ -179,8 +195,9 @@
         if (typeof index !== 'number') {
           return
         }
-        this.labelModel.splice(index, 1)
+        const deleteItem = this.labelModel.splice(index, 1)
         this.$emit('change', this.labelModel)
+        this.$emit('onLabelDelete', deleteItem)
         this.choosedLabelsStatus[tag.name] = false
       },
       clickOutSideHandle ($event) {

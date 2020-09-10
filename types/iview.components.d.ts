@@ -62,6 +62,7 @@ export { Tooltip } from './tooltip';
 export { Transfer } from './transfer';
 export { Tree, TreeChild } from './tree';
 export { Upload } from './upload';
+export { Label } from './label'
 
 interface IViewGlobalOptions{
     size?: string;
