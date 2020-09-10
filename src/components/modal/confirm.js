@@ -264,7 +264,7 @@ Modal.newInstance = properties => {
                 modal.$parent.iconName = props.iconName;
             }
             if ('iconExtraClass' in props) {
-                modal.$parent.iconExtraClass = props.iconExtraClass
+                modal.$parent.iconExtraClass = props.iconExtraClass;
             }
 
             // notice when component destroy

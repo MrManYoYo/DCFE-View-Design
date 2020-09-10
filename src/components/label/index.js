@@ -1,2 +1,2 @@
-import Label from './label.vue'
+import Label from './label.vue';
 export default Label;

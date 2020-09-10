@@ -28,7 +28,6 @@
     import mixinsForm from '../../mixins/form';
 
     const prefixCls = 'ivu-input-ip';
-    const iconPrefixCls = 'ivu-icon';
 
     export default {
         name: 'InputIp',
@@ -129,7 +128,7 @@
                     this.$emit('on-change', val);
                     this.dispatch('FormItem', 'on-form-change', val);
                     if (`${val}`.length === 3) {
-                        this.$emit('dotClick')
+                        this.$emit('dotClick');
                     }
                 });
             },
@@ -147,10 +146,10 @@
             keyDown (e) {
                 if (e.keyCode === 190) {
                     e.preventDefault();
-                    this.$emit('dotClick')
+                    this.$emit('dotClick');
                 } else if (e.keyCode === 8) {
                     if (!this.currentValue && typeof this.currentValue !== 'number') {
-                        this.$emit('backPrevInput')
+                        this.$emit('backPrevInput');
                     }
                 }
             },
@@ -179,15 +178,15 @@
                     event.target.value = this.currentValue;
                 }
             },
-            changeVal (val) {
+            changeVal () {
                 // val = Number(val);
             },
             setFocus () {
-                this.$refs.ipInput.focus()
+                this.$refs.ipInput.focus();
             }
         },
         mounted () {
-            this.changeVal(this.currentValue);
+            // this.changeVal(this.currentValue);
         },
         watch: {
             value (val) {

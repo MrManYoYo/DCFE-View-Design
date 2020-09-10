@@ -13,61 +13,61 @@
 <script>
   import LabelList from './label-list';
   const prefixCls = 'ivu-label';
-  const iconPrefixCls = 'ivu-icon';
+//   const iconPrefixCls = 'ivu-icon';
 
   export default {
-    name: 'Label',
-    components: { LabelList },
-    model: {
-      prop: 'value',
-      event: 'change'
-    },
-    props: {
-      value: {
-        type: Array
+      name: 'Label',
+      components: { LabelList },
+      model: {
+          prop: 'value',
+          event: 'change'
       },
-      labelList: {
-        type: Array
+      props: {
+          value: {
+              type: Array
+          },
+          labelList: {
+              type: Array
+          },
+          viewMode: {
+              type: Boolean,
+              default: false
+          }
       },
-      viewMode: {
-        type: Boolean,
-        default: false
-      }
-    },
-    data() {
-      return {
-        choosedLabel: [],
-      }
-    },
-    watch: {
-      value (newVal) {
-        this.choosedLabel = newVal
-        this.$emit('change', newVal)
+      data() {
+          return {
+              choosedLabel: [],
+          };
       },
-      labelList (newVal) {
-        this.labelList = newVal
-      }
-    },
-    computed: {
-      wrapClasses () {
-        return [
-          `${prefixCls}`
-        ]
-      }
-    },
-    created () {
-      this.choosedLabel = this.value
-    },
-    methods: {
-      onLabelListChange (labelList, selected) {
-        this.$emit('onListChange', labelList, selected)
+      watch: {
+          value (newVal) {
+              this.choosedLabel = newVal;
+              this.$emit('change', newVal);
+          },
+          labelList (newVal) {
+              this.labelList = newVal;
+          }
       },
-      onLabelSelectedChange (selected) {
-        this.$emit('onSelectedChange', selected)
+      computed: {
+          wrapClasses () {
+              return [
+                  `${prefixCls}`
+              ];
+          }
       },
-      onLabelDelete (deleteItem) {
-        this.$emit('onLabelDelete', deleteItem)
+      created () {
+          this.choosedLabel = this.value;
+      },
+      methods: {
+          onLabelListChange (labelList, selected) {
+              this.$emit('onListChange', labelList, selected);
+          },
+          onLabelSelectedChange (selected) {
+              this.$emit('onSelectedChange', selected);
+          },
+          onLabelDelete (deleteItem) {
+              this.$emit('onLabelDelete', deleteItem);
+          }
       }
-    }
-  }
+  };
 </script>

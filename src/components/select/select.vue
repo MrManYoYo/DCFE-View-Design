@@ -560,7 +560,7 @@
                 }
                 // 未赋值情况下，初次输入不存在的条目，不选择情况下，blur后应清空
                 if (this.values.length === 0 && !this.visible) {
-                    this.query = ''
+                    this.query = '';
                 }
             },
             hideMenu () {
