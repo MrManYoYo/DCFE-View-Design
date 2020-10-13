@@ -258,7 +258,7 @@
                         }
                     });
                 } else {
-                    TabPanes = this.initNavModeList()
+                    TabPanes = this.initNavModeList();
                 }
 
                 // 在 TabPane 使用 v-if 时，并不会按照预先的顺序渲染，这时可设置 index，并从小到大排序
@@ -270,7 +270,7 @@
                 return TabPanes;
             },
             initNavModeList () {
-                let navModeList = []
+                let navModeList = [];
                 if (this.navMode && Array.isArray(this.navModeList) && this.navModeList.length > 0) {
                     navModeList = this.navModeList.map((item, index) => ({
                         label: item.label,
@@ -280,13 +280,12 @@
                         closable: item.closable || this.closable,
                         contextMenu: item.contextMenu,
                         currentName: item.name || index
-                    }))
+                    }));
                 }
-                return navModeList
+                return navModeList;
             },
             updateNav () {
                 this.navList = [];
-                console.log('updateNav', this.getTabs())
                 this.getTabs().forEach((pane, index) => {
                     this.navList.push({
                         labelType: typeof pane.label,
@@ -349,7 +348,6 @@
 
                 const nav = this.navList[index];
                 if (!nav || nav.disabled) return;
-                console.log(nav)
                 this.activeKey = nav.name;
                 this.$emit('input', nav.name);
                 this.$emit('on-click', nav.name);
@@ -417,7 +415,7 @@
                 if (!this.navMode) {
                     tab.$destroy();
                 } else {
-                    this.navModeList.splice(index, 1)
+                    this.navModeList.splice(index, 1);
                 }
 
                 if (tab.currentName === this.activeKey) {
@@ -561,7 +559,7 @@
             },
             updateVisibility(index){
                 if (this.navMode) {
-                    return
+                    return;
                 }
                 [...this.$refs.panes.querySelectorAll(`.${prefixCls}-tabpane`)].forEach((el, i) => {
                     if (index === i) {
@@ -593,7 +591,7 @@
                     navNames.splice(b, 1, ...navNames.splice(a, 1 , navNames[b]));
                     this.$emit('on-drag-drop', dragName, nav.name, a, b, navNames);
                 }
-                this.updateNav()
+                this.updateNav();
             }
         },
         watch: {
@@ -617,7 +615,7 @@
         },
         mounted () {
             if (this.navMode) {
-                this.updateNav()
+                this.updateNav();
             }
             this.showSlot = this.$slots.extra !== undefined;
             this.observer = elementResizeDetectorMaker();

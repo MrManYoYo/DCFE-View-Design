@@ -45,109 +45,109 @@
 
 <script>
   export default {
-    name: '',
-    props: {
-      editRow: {
-        type: [Object, null]
+      name: '',
+      props: {
+          editRow: {
+              type: [Object, null]
+          },
+          editRowIdx: {
+              type: [Number, null]
+          },
+          labelList: {
+              type: Array
+          },
+          createMode: {
+              type: Boolean
+          },
+          quickAddMode: {
+              type: Boolean
+          }
       },
-      editRowIdx: {
-        type: [Number, null]
+      data() {
+          return {
+              newLabelName: '',
+              choosedIdx: 0,
+              showErrorInfo: false,
+              errorInfo: '',
+              themeList: ['primary', 'success', 'default', 'warning', 'danger']
+          };
       },
-      labelList: {
-        type: Array
+      watch: {
+          editRow (newVal) {
+              if (newVal && newVal.name && newVal.color) {
+                  this.newLabelName = newVal.name;
+                  this.choosedIdx = this.themeList.indexOf(newVal.color);
+              } else {
+                  this.newLabelName = '';
+                  this.choosedIdx = 0;
+              }
+          }
       },
-      createMode: {
-        type: Boolean
+      created () {
+          if (this.editRow) {
+              this.newLabelName = this.editRow.name;
+              this.choosedIdx = this.themeList.indexOf(this.editRow.color);
+          }
       },
-      quickAddMode: {
-        type: Boolean
-      }
-    },
-    data() {
-      return {
-        newLabelName: '',
-        choosedIdx: 0,
-        showErrorInfo: false,
-        errorInfo: '',
-        themeList: ['primary', 'success', 'default', 'warning', 'danger']
-      };
-    },
-    watch: {
-      editRow (newVal) {
-        if (newVal && newVal.name && newVal.color) {
-          this.newLabelName = newVal.name;
-          this.choosedIdx = this.themeList.indexOf(newVal.color);
-        } else {
-          this.newLabelName = '';
-          this.choosedIdx = 0;
-        }
-      }
-    },
-    created () {
-      if (this.editRow) {
-        this.newLabelName = this.editRow.name;
-        this.choosedIdx = this.themeList.indexOf(this.editRow.color);
-      }
-    },
-    methods: {
-      createNewLabelHandle () {
-        if (!this.newLabelName || this.newLabelName.trim().length === 0) {
-          return;
-        }
+      methods: {
+          createNewLabelHandle () {
+              if (!this.newLabelName || this.newLabelName.trim().length === 0) {
+                  return;
+              }
         // 判断是否存在同名标签
-        const matched = this.labelList.filter(item => item.name === this.newLabelName);
+              const matched = this.labelList.filter(item => item.name === this.newLabelName);
         // 标签名一样
-        if (matched.length > 0) {
-          this.errorInfo = '标签名称已存在';
-          this.showErrorInfo = true;
-          return;
-        }
-        const newTag = {
-          name: this.newLabelName,
-          color: this.themeList[this.choosedIdx]
-        };
-        this.$emit('createNewHandle', {
-          newTag,
-          editRowIdx: this.editRowIdx
-        });
-        this.reset();
-      },
-      quickCreateHandle () {
-        this.$emit('quickCreateLabelHandle', {
-          color: this.themeList[this.choosedIdx]
-        });
-      },
-      editLabelHandle () {
-        if (!this.newLabelName || this.newLabelName.trim().length === 0) {
-          return;
-        }
+              if (matched.length > 0) {
+                  this.errorInfo = '标签名称已存在';
+                  this.showErrorInfo = true;
+                  return;
+              }
+              const newTag = {
+                  name: this.newLabelName,
+                  color: this.themeList[this.choosedIdx]
+              };
+              this.$emit('createNewHandle', {
+                  newTag,
+                  editRowIdx: this.editRowIdx
+              });
+              this.reset();
+          },
+          quickCreateHandle () {
+              this.$emit('quickCreateLabelHandle', {
+                  color: this.themeList[this.choosedIdx]
+              });
+          },
+          editLabelHandle () {
+              if (!this.newLabelName || this.newLabelName.trim().length === 0) {
+                  return;
+              }
         // 判断是否存在同名标签
         //   const matched = this.labelList.filter(item => item.name === this.newLabelName);
-        if (this.editRow && this.newLabelName === this.editRow.name
+              if (this.editRow && this.newLabelName === this.editRow.name
           && this.editRow.color === this.themeList[this.choosedIdx]) {
           // 颜色 & 名称一样，仅关闭
-            this.$emit('backListHandle');
-        } else {
-          const newTag = {
-            name: this.newLabelName,
-            color: this.themeList[this.choosedIdx]
-          };
-          this.$emit('createNewHandle', {
-            newTag,
-            editRowIdx: this.editRowIdx
-          });
-        }
-        this.reset();
-      },
-      deleteLabelHandle () {
-        this.$emit('deleteLabel');
-      },
-      reset () {
-        this.newLabelName = '';
-        this.choosedIdx = 0;
-        this.errorInfo = '';
-        this.showErrorInfo = false;
+                  this.$emit('backListHandle');
+              } else {
+                  const newTag = {
+                      name: this.newLabelName,
+                      color: this.themeList[this.choosedIdx]
+                  };
+                  this.$emit('createNewHandle', {
+                      newTag,
+                      editRowIdx: this.editRowIdx
+                  });
+              }
+              this.reset();
+          },
+          deleteLabelHandle () {
+              this.$emit('deleteLabel');
+          },
+          reset () {
+              this.newLabelName = '';
+              this.choosedIdx = 0;
+              this.errorInfo = '';
+              this.showErrorInfo = false;
+          }
       }
-    }
   };
 </script>
