@@ -44,6 +44,14 @@ export declare class Tabs extends Vue {
    */
   name?: string;
   /**
+   * 是否开启导航模式
+   */
+  'nav-mode'?: boolean;
+  /**
+   * 导航模式tabs页签数组,navMode下有效
+   */
+  'nav-mode-list'?: any[]
+  /**
    * tab 被点击时触发
    */
   $emit(eventName: 'on-click', name: string): this;

@@ -6,7 +6,8 @@
 
 - [x] IP输入框
 - [x] 添加标签
-- [ ] Input输入框类型校验
+- [x] Tabs组件新增导航模式
+  - navMode & navModeList
 - [ ] 图表容器，宽度调整自动resize
 - [x] 列表调整
     - 样式 noBorder风格
