@@ -37,7 +37,7 @@
                 </div>
             </div>
         </div>
-        <div :class="contentClasses" :style="contentStyle" ref="panes"><slot></slot></div>
+        <div :class="contentClasses" :style="contentStyle" v-if='!navMode' ref="panes"><slot></slot></div>
         <div class="ivu-tabs-context-menu" :style="contextMenuStyles">
             <Dropdown trigger="custom" :visible="contextMenuVisible" transfer @on-clickoutside="handleClickContextMenuOutside">
                 <DropdownMenu slot="list">
@@ -122,6 +122,13 @@
             draggable: {
                 type: Boolean,
                 default: false
+            },
+            navMode: {
+                type: Boolean,
+                default: false
+            },
+            navModeList: {
+                type: Array
             }
         },
         data () {
@@ -237,18 +244,22 @@
         methods: {
             getTabs () {
                 // return this.$children.filter(item => item.$options.name === 'TabPane');
-                const AllTabPanes = findComponentsDownward(this, 'TabPane');
-                const TabPanes = [];
+                let TabPanes = [];
+                if (!this.navMode) {
+                    const AllTabPanes = findComponentsDownward(this, 'TabPane');
 
-                AllTabPanes.forEach(item => {
-                    if (item.tab && this.name) {
-                        if (item.tab === this.name) {
+                    AllTabPanes.forEach(item => {
+                        if (item.tab && this.name) {
+                            if (item.tab === this.name) {
+                                TabPanes.push(item);
+                            }
+                        } else {
                             TabPanes.push(item);
                         }
-                    } else {
-                        TabPanes.push(item);
-                    }
-                });
+                    });
+                } else {
+                    TabPanes = this.initNavModeList()
+                }
 
                 // 在 TabPane 使用 v-if 时，并不会按照预先的顺序渲染，这时可设置 index，并从小到大排序
                 TabPanes.sort((a, b) => {
@@ -258,8 +269,24 @@
                 });
                 return TabPanes;
             },
+            initNavModeList () {
+                let navModeList = []
+                if (this.navMode && Array.isArray(this.navModeList) && this.navModeList.length > 0) {
+                    navModeList = this.navModeList.map((item, index) => ({
+                        label: item.label,
+                        icon: item.icon,
+                        name: item.name || item.label || index,
+                        disabled: item.disabled,
+                        closable: item.closable || this.closable,
+                        contextMenu: item.contextMenu,
+                        currentName: item.name || index
+                    }))
+                }
+                return navModeList
+            },
             updateNav () {
                 this.navList = [];
+                console.log('updateNav', this.getTabs())
                 this.getTabs().forEach((pane, index) => {
                     this.navList.push({
                         labelType: typeof pane.label,
@@ -322,6 +349,7 @@
 
                 const nav = this.navList[index];
                 if (!nav || nav.disabled) return;
+                console.log(nav)
                 this.activeKey = nav.name;
                 this.$emit('input', nav.name);
                 this.$emit('on-click', nav.name);
@@ -386,7 +414,11 @@
             handleRemoveTab (index) {
                 const tabs = this.getTabs();
                 const tab = tabs[index];
-                tab.$destroy();
+                if (!this.navMode) {
+                    tab.$destroy();
+                } else {
+                    this.navModeList.splice(index, 1)
+                }
 
                 if (tab.currentName === this.activeKey) {
                     const newTabs = this.getTabs();
@@ -528,6 +560,9 @@
                 return false;
             },
             updateVisibility(index){
+                if (this.navMode) {
+                    return
+                }
                 [...this.$refs.panes.querySelectorAll(`.${prefixCls}-tabpane`)].forEach((el, i) => {
                     if (index === i) {
                         [...el.children].filter(child=> child.classList.contains(`${prefixCls}-tabpane`)).forEach(child => child.style.visibility = 'visible');
@@ -558,6 +593,7 @@
                     navNames.splice(b, 1, ...navNames.splice(a, 1 , navNames[b]));
                     this.$emit('on-drag-drop', dragName, nav.name, a, b, navNames);
                 }
+                this.updateNav()
             }
         },
         watch: {
@@ -580,6 +616,9 @@
             }
         },
         mounted () {
+            if (this.navMode) {
+                this.updateNav()
+            }
             this.showSlot = this.$slots.extra !== undefined;
             this.observer = elementResizeDetectorMaker();
             this.observer.listenTo(this.$refs.navWrap, this.handleResize);

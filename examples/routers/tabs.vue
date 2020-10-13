@@ -1,6 +1,6 @@
 <template>
    <div>
-       <Tabs type="card" @on-contextmenu="handleContextMenu">
+       <!-- <Tabs type="card" @on-contextmenu="handleContextMenu">
            <TabPane label="标签一" name="tab1" context-menu>标签一的内容</TabPane>
            <TabPane label="标签二" name="tab2">标签二的内容</TabPane>
            <TabPane label="标签三" name="tab3" context-menu>标签三的内容</TabPane>
@@ -12,6 +12,8 @@
        <Divider></Divider>
        <Tabs type="card" :draggable="true" @on-drag-drop="handleDragDrop">
            <TabPane v-for="(tab, index) in tabs" :key="index" :label="tab.label" :name="tab.name">{{ tab.label }}</TabPane>
+       </Tabs> -->
+       <Tabs navMode :navModeList='tabs' v-model='activeName' type='card' closable draggable @on-drag-drop="handleDragDrop">
        </Tabs>
    </div>
 </template>
@@ -19,6 +21,7 @@
     export default {
         data () {
             return {
+                activeName: '',
                 contextData: null,
                 tabs: [
                     {
