@@ -1,19 +1,10 @@
 {
-    "name": "view-design",
+    "name": "dcfe-view-design",
     "version": "4.3.2",
-    "title": "ViewUI",
-    "description": "A high quality UI components Library with Vue.js",
+    "title": "DCFE-View-Design",
+    "description": "Secondary development based on view-design(v4.3.2)",
     "homepage": "http://www.iviewui.com",
-    "keywords": [
-        "iview",
-        "vue",
-        "viewui",
-        "vue.js",
-        "component",
-        "components",
-        "ui",
-        "framework"
-    ],
+    "keywords": [],
     "main": "dist/iview.js",
     "typings": "types/index.d.ts",
     "files": [
@@ -37,12 +28,12 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/view-design/ViewUI"
+        "url": "https://github.com/MrManYoYo/DCFE-View-Design"
     },
-    "author": "Aresn",
+    "author": "MrManYoYo",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/view-design/ViewUI/issues"
+        "url": "https://github.com/MrManYoYo/DCFE-View-Design/issues"
     },
     "dependencies": {
         "async-validator": "^3.3.0",

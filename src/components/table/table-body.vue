@@ -119,7 +119,8 @@
                 if (this.$parent.contextMenu) event.preventDefault();
                 this.$parent.contextmenuCurrentRow(_index, rowKey, event);
             },
-            selectStartCurrentRow (_index, event) {
+            // selectStartCurrentRow (_index, event) {
+            selectStartCurrentRow () {
                 if (this.$parent.contextMenu) {
                     // event.stopPropagation();
                     // event.preventDefault();

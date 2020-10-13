@@ -94,6 +94,11 @@ export declare class Modal extends Vue {
      */
     transfer?: boolean;
     /**
+     * 是否开启垂直居中模式
+     * @default false 
+     */
+    centered?: boolean
+    /**
      * 点击确定的回调
      */
     $emit(eventName: "on-ok"): this;
@@ -212,6 +217,14 @@ export declare class ModalConfig {
      * 点击取消的回调，只在Modal.confirm()下有效
      */
     onCancel?: () => void;
+    /**
+     * 图标样式
+     */
+    iconName?: string
+    /**
+     *  图标额外class
+     */
+    iconExtraClass?: string
 }
 
 declare module "vue/types/vue" {

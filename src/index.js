@@ -30,6 +30,7 @@ import InputNumber from './components/input-number';
 import Ip from './components/ip';
 import Scroll from './components/scroll';
 import Split from './components/split';
+import Label from './components/label';
 import Layout from './components/layout';
 import List from './components/list';
 import LoadingBar from './components/loading-bar';
@@ -104,6 +105,7 @@ const components = {
     Sider: Sider,
     Split,
     Submenu: Menu.Sub,
+    Label,
     Layout: Layout,
     List,
     ListItem: List.Item,
@@ -155,6 +157,7 @@ const iview = {
     iHeader: Header,
     iInput: Input,
     iIp: Ip,
+    iLabel: Label,
     iMenu: Menu,
     iOption: Option,
     iProgress: Progress,

@@ -4,6 +4,7 @@
             <div :class="[prefixCls + '-title']" v-if="showSlotHeader" ref="title"><slot name="header"></slot></div>
             <div :class="[prefixCls + '-header']" v-if="showHeader" ref="header" @mousewheel="handleMouseWheel">
                 <table-head
+                    :column-draggable="columnDraggable"
                     :prefix-cls="prefixCls"
                     :styleObject="tableHeaderStyle"
                     :columns="cloneColumns"
@@ -202,6 +203,10 @@
                 type: Boolean,
                 default: false
             },
+            noBorder: {
+                type: Boolean,
+                default: false
+            },
             showHeader: {
                 type: Boolean,
                 default: true
@@ -233,6 +238,10 @@
                 default: false
             },
             draggable: {
+                type: Boolean,
+                default: false
+            },
+            columnDraggable: {
                 type: Boolean,
                 default: false
             },
@@ -358,6 +367,7 @@
                     {
                         [`${prefixCls}-${this.size}`]: !!this.size,
                         [`${prefixCls}-border`]: this.border,
+                        [`${prefixCls}-no-border`]: this.noBorder,
                         [`${prefixCls}-stripe`]: this.stripe,
                         [`${prefixCls}-with-fixed-top`]: !!this.height
                     }
@@ -808,11 +818,16 @@
             },
             toggleExpand (_index) {
                 let data = {};
+                const accordion = (this.cloneColumns.find(t => t.type === 'expand') || {}).accordion;
 
                 for (let i in this.objData) {
                     if (parseInt(i) === _index) {
                         data = this.objData[i];
-                        break;
+                        if (!accordion) {
+                            break;
+                        }
+                    } else if (accordion) {
+                        this.objData[i]._isExpanded = false;
                     }
                 }
                 const status = !data._isExpanded;
@@ -1378,6 +1393,9 @@
             },
             dragAndDrop(a,b) {
                 this.$emit('on-drag-drop', a,b);
+            },
+            columnDragAndDrop(a, b) {
+                this.$emit('on-column-drag-drop', a, b);
             },
             handleClickContextMenuOutside () {
                 this.contextMenuVisible = false;

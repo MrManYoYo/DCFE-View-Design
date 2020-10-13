@@ -49,6 +49,9 @@
             labelWidth: {
                 type: Number
             },
+            itemWidth: {
+                type: Number
+            },
             prop: {
                 type: String
             },
@@ -150,6 +153,13 @@
                 if (labelWidth || labelWidth === 0) {
                     style.marginLeft = `${labelWidth}px`;
                 }
+                
+                const itemWidth = this.itemWidth ? this.itemWidth : this.FormInstance.itemWidth;
+
+                if (itemWidth) {
+                    style.width = `${itemWidth}px`;
+                }
+
                 return style;
             }
         },

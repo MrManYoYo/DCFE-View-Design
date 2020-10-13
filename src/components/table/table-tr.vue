@@ -21,7 +21,10 @@
             },
             onDrop (e,index) {
                 const dragIndex = e.dataTransfer.getData('index');
-                this.$parent.$parent.dragAndDrop(dragIndex,index);
+                // TODO 忽略掉不同表格之间的拖拽，不同表格拖拽会报错
+                if (dragIndex) {
+                    this.$parent.$parent.dragAndDrop(dragIndex,index);
+                }
                 e.preventDefault();
             },
             allowDrop (e) {

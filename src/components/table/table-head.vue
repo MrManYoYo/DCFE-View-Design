@@ -10,6 +10,10 @@
                     v-for="(column, index) in cols"
                     :colspan="column.colSpan"
                     :rowspan="column.rowSpan"
+                    :draggable="draggable(rowIndex, column.type)"
+                    @dragstart="draggable(rowIndex, column.type) ? onDrag($event,index) : null"
+                    @drop="draggable(rowIndex, column.type) ? onDrop($event,index) : null"
+                    @dragover="draggable(rowIndex, column.type) ? allowDrop($event) : null"
                     :class="alignCls(column)">
                     <div :class="cellClasses(column)">
                         <template v-if="column.type === 'expand'">
@@ -89,6 +93,10 @@
         mixins: [ Mixin, Locale ],
         components: { CheckboxGroup, Checkbox, Poptip, iButton, renderHeader },
         props: {
+            columnDraggable: {
+                type: Boolean,
+                default: false
+            },
             prefixCls: String,
             styleObject: Object,
             columns: Array,
@@ -390,7 +398,24 @@
                     });
                 }
                 return status;
-            }
+            },
+            draggable (index, type) {
+                return this.columnDraggable && index===0 && !type;
+            },
+            onDrag (e, index) {
+                e.dataTransfer.setData('columnIndex',index);
+            },
+            onDrop (e, index) {
+                const dragIndex = e.dataTransfer.getData('columnIndex');
+                // TODO 忽略掉不同表格之间的拖拽，不同表格拖拽会报错
+                if (dragIndex) {
+                    this.$parent.columnDragAndDrop(dragIndex, index);
+                }
+                e.preventDefault();
+            },
+            allowDrop (e) {
+                e.preventDefault();
+            },
         }
     };
 </script>
